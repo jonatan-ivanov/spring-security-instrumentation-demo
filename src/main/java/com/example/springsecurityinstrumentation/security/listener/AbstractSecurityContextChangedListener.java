@@ -38,15 +38,15 @@ public abstract class AbstractSecurityContextChangedListener implements Security
 	protected String getDetailedAuthEventName(Authentication previousAuth, Authentication currentAuth) {
 		if (currentAuth != null) {
 			if (previousAuth != null) {
-				return format("re-auth from:%s to:%s", previousAuth.getName(), currentAuth.getName());
+				return format("re-auth from:%s to:%s", getDetails(previousAuth), getDetails(currentAuth));
 			}
 			else {
-				return format("auth:%s", currentAuth.getName());
+				return format("auth:%s", getDetails(currentAuth));
 			}
 		}
 		else {
 			if (previousAuth != null) {
-				return format("de-auth:%s", previousAuth.getName());
+				return format("de-auth:%s", getDetails(previousAuth));
 			}
 			else {
 				return "no-auth";
@@ -55,6 +55,10 @@ public abstract class AbstractSecurityContextChangedListener implements Security
 	}
 
 	protected String getEventName(Authentication authentication) {
-		return "auth:" + (authentication != null ? authentication.getName() : "null");
+		return "auth:" + (authentication != null ? getDetails(authentication) : "null");
+	}
+
+	private String getDetails(Authentication authentication) {
+		return authentication.getClass().getSimpleName() + authentication.getAuthorities();
 	}
 }
