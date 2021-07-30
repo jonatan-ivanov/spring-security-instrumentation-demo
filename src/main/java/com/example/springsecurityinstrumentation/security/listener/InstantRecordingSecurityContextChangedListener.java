@@ -22,14 +22,14 @@ public class InstantRecordingSecurityContextChangedListener extends AbstractSecu
 	@Override
 	void handleCreateContextEvent(SecurityContext context) {
 		recorder.recordingFor(CREATED)
-				.detailedName(CREATED.getName() + " " + getName(context.getAuthentication()))
+				.detailedName(CREATED.getName() + " " + getEventName(context.getAuthentication()))
 				.record();
 	}
 
 	@Override
 	void handleClearContextEvent(SecurityContext context) {
 		recorder.recordingFor(CLEARED)
-				.detailedName(CLEARED.getName() + " " + getName(context.getAuthentication()))
+				.detailedName(CLEARED.getName() + " " + getEventName(context.getAuthentication()))
 				.record();
 	}
 

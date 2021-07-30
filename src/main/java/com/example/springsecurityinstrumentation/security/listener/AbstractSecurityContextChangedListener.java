@@ -54,7 +54,7 @@ public abstract class AbstractSecurityContextChangedListener implements Security
 		}
 	}
 
-	protected static String getName(Authentication authentication) {
+	protected String getEventName(Authentication authentication) {
 		return "auth:" + (authentication != null ? authentication.getName() : "null");
 	}
 }
